@@ -1,23 +1,33 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
+
+import { Redirect, Route, Switch } from 'react-router-dom'
+
+// general styles
+import 'reset-css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
+
+import Header from './containers/header/header.container';
+import UsersPage from './pages/users/users.page';
+import NotFoundPage from './pages/notFound/notFound.page'
+import UserSinglePage from './pages/userSingle/userSingle.page';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/users" />
+        </Route>
+        <Route exact path="/users" component={UsersPage} />
+        <Route path="/users/:id" component={UserSinglePage} />
+
+        <Route component={NotFoundPage} />
+      </Switch>
+
     </div>
   );
 }

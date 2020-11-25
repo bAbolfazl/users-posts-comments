@@ -1,0 +1,5 @@
+ const USER_ACTIONTYPES = {
+    SET_USERS : 'SET_USERS'
+}
+
+export default USER_ACTIONTYPES
