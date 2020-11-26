@@ -17,7 +17,7 @@ const UsersList = ({ setUsers, selectUserList, setPosts, selectPostList }) => {
     useEffect(() => {
 
         fetchUsers(setUsers)
-        fetchPosts(setPosts)
+        // fetchPosts(setPosts)
 
         // return () => {
         //     cleanup
@@ -30,7 +30,7 @@ const UsersList = ({ setUsers, selectUserList, setPosts, selectPostList }) => {
                 {
                     selectUserList
                         ?
-                        selectUserList.map(user => <UserSingle key={user.id} user={user} fetchPosts={fetchPosts} />)
+                        selectUserList.map(user => <UserSingle key={user.id} user={user} />)
                         :
                         null
                 }

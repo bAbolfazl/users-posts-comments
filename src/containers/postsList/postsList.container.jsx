@@ -22,9 +22,9 @@ const PostsList = ({ match, selectPostList, setPosts, setComments, selectComment
 
     useEffect(() => {
 
-        if (!selectPostList.length) {
+        // if (!selectPostList.length) {
             fetchPosts(setPosts)
-        }
+        // }
 
         fetchComments(setComments)
 
@@ -44,7 +44,6 @@ const PostsList = ({ match, selectPostList, setPosts, setComments, selectComment
                                 <ul className='text-muted'>
                                    comments: <Pagination postId={post.id} comments={selectCommentList} />
                                 </ul>
-
                             </div>
                         })
                     : null
