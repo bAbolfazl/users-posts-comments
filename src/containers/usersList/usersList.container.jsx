@@ -1,23 +1,17 @@
 import React, { useEffect } from 'react';
 
-import { fetchPosts, fetchUsers } from '../../utils/utils';
-
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import UserSingle from '../../components/userSingle/userSingle.component';
 
-import { setUsers } from '../../redux/user/user.actions';
+import { fetchUsersAsync } from '../../redux/user/user.actions';
 import { selectUserList } from '../../redux/user/user.selectors';
-import { setPosts } from '../../redux/post/post.actions';
-import { selectPostList } from '../../redux/post/post.selector';
 
 
-const UsersList = ({ setUsers, selectUserList, setPosts, selectPostList }) => {
+const UsersList = ({ fetchUsersAsync, selectUserList }) => {
 
     useEffect(() => {
-
-        fetchUsers(setUsers)
-        // fetchPosts(setPosts)
+        fetchUsersAsync()
 
         // return () => {
         //     cleanup
@@ -28,11 +22,9 @@ const UsersList = ({ setUsers, selectUserList, setPosts, selectPostList }) => {
         <div className="container">
             <div className="d-flex flex-wrap align-items-center justify-content-around">
                 {
-                    selectUserList
-                        ?
+                    selectUserList ?
                         selectUserList.map(user => <UserSingle key={user.id} user={user} />)
-                        :
-                        null
+                        : null
                 }
             </div>
         </div>
@@ -41,12 +33,10 @@ const UsersList = ({ setUsers, selectUserList, setPosts, selectPostList }) => {
 
 const mapStateToProps = createStructuredSelector({
     selectUserList: selectUserList,
-    selectPostList: selectPostList
 })
 
 const mapDispatchToProps = dispatch => ({
-    setUsers: users => dispatch(setUsers(users)),
-    setPosts: posts => dispatch(setPosts(posts))
+    fetchUsersAsync: () => dispatch(fetchUsersAsync())
 })
 
 

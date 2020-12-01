@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { fetchComments, fetchPosts } from '../../utils/utils';
+// import { fetchComments, fetchPosts } from '../../utils/utils';
 
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 // import { compose } from 'redux';
 
 import { selectPostList } from '../../redux/post/post.selector';
-import { setPosts } from '../../redux/post/post.actions';
-import { setComments } from '../../redux/comment/comment.actions';
+import { fetchPostsAsync } from '../../redux/post/post.actions';
+import { FetchCommentAsync } from '../../redux/comment/comment.actions';
 import { selectCommentList } from '../../redux/comment/comment.selectors';
 
 import PostSingle from '../../components/postSingle/postSingle.component';
@@ -17,16 +17,18 @@ import Pagination from '../pagination/pagination.component';
 
 
 
-const PostsList = ({ match, selectPostList, setPosts, setComments, selectCommentList }) => {
+const PostsList = ({ match, selectPostList, selectCommentList, fetchPostsAsync, FetchCommentAsync }) => {
 
 
     useEffect(() => {
 
         // if (!selectPostList.length) {
-            fetchPosts(setPosts)
+        // fetchPosts(setPosts)
         // }
 
-        fetchComments(setComments)
+        fetchPostsAsync()
+        FetchCommentAsync()
+        // fetchComments(setComments)
 
         // return () => {
         //     cleanup
@@ -42,7 +44,7 @@ const PostsList = ({ match, selectPostList, setPosts, setComments, selectComment
                             return <div key={post.id} className="mb-5 pb-5">
                                 <PostSingle {...post} index={index} />
                                 <ul className='text-muted'>
-                                   comments: <Pagination postId={post.id} comments={selectCommentList} />
+                                    comments: <Pagination postId={post.id} comments={selectCommentList} />
                                 </ul>
                             </div>
                         })
@@ -58,8 +60,8 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
-    setPosts: posts => dispatch(setPosts(posts)),
-    setComments: comments => dispatch(setComments(comments))
+    fetchPostsAsync: () => dispatch(fetchPostsAsync()),
+    FetchCommentAsync: () => dispatch(FetchCommentAsync())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PostsList))

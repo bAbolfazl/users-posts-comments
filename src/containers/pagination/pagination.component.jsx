@@ -20,11 +20,11 @@ const Pagination = ({ comments, postId }) => {
         <li className="font-size--n2" >
             {
                 comments.length ?
-
                     currentComments
                         .find((comment, i) => i === commentPage)
                         .body
-                    : null}
+                    : null
+            }
 
             <PaginationReact containerClassName='pagination' pageCount={currentComments.length} onPageChange={handle_pageChange} />
         </li>
